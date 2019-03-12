@@ -1,4 +1,4 @@
-a = ['Keila','Teteh','Elias','Billy','Rachel','Christina','Poppy','Tristan','Suzan']
+a = ['Keila','Lauren','Teteh','Elias','Billy','Rachel','Christina','Tristan','Suzan']
 
 import random
 
