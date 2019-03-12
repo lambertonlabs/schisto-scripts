@@ -8,3 +8,6 @@ This script performs an in-silico digest of a (named) reference genome sequence 
 
 # rda.R
 This script performs redundancy analysis on a genotype dataset
+
+# birthdays.py
+A short script to randomly assign birthday duty (card and cookies/cake/potato chips/whatever)
