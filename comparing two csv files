@@ -1,0 +1,13 @@
+a1 = read.csv("filename1.csv", header=T)
+a2 = read.csv("filename2.csv", header=T)
+
+library(daff)
+
+diff_data(data_ref = a2,
+          data = a1)
+
+
+render_diff(
+  diff_data(data_ref = a2,
+            data = a1)
+)
