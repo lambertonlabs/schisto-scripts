@@ -14,5 +14,25 @@ samtools index /home/ubuntu/data/faust/CF3.rg.md.bam
 samtools faidx /Genomes/Trematoda/schistosoma_mansoni.PRJEA36577.WBPS11.genomic.fa
 
 #call haplotypes
-./gatk/gatk HaplotypeCaller -R Genomes/Trematoda/schistosoma_mansoni.PRJEA36577.WBPS11.genomic.fa -O CF3.g.vcf -I data/faust/CF3.rg.md.bam -ERC GVCF
-./gatk/gatk HaplotypeCaller -R Genomes/Trematoda/schistosoma_mansoni.PRJEA36577.WBPS11.genomic.fa -O CF7.g.vcf -I data/faust/CF7.rg.md.bam -ERC GVCF
+mkdir GVCF
+
+./gatk/gatk HaplotypeCaller \
+-R Genomes/Trematoda/schistosoma_mansoni.PRJEA36577.WBPS11.genomic.fa \
+-O data/faust/GVCF/CF3.g.vcf \
+-I data/faust/CF3.rg.md.bam \
+-ERC GVCF
+
+./gatk/gatk HaplotypeCaller \
+-R Genomes/Trematoda/schistosoma_mansoni.PRJEA36577.WBPS11.genomic.fa \
+-O data/faust/GVCF/CF7.g.vcf \
+-I data/faust/CF7.rg.md.bam \
+-ERC GVCF
+#takes approx 190 minutes per 5X WGS
+
+#consolidate GVCF
+mkdir data/faust/GenomicsDB
+./gatk/gatk data/faust/GenomicsDBImport  \
+---genomicsdb-workspace-path data/faust/GenomicsDB \
+-V data/faust/GVCF/CF7.g.vcf \
+-V data/faust/GVCF/CF3.g.vcf \
+--intervals 20
