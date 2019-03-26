@@ -19,7 +19,7 @@ sudo apt-get install git-lfs
 #final install and initialise
 git lfs install
 ###########################################################################
-#GATKtools
+#GATKtools - SNP calling
 ###########################################################################
 #navigate to https://github.com/broadinstitute/gatk/#building for more info
 #clone the up-to-date GATK repository
@@ -32,7 +32,7 @@ cd gatk
 ./gradlew bundle
 
 ###########################################################################
-#Picardtools
+#Picardtools - BAM file fannying about
 ###########################################################################
 #go to https://github.com/broadinstitute/picard
 #clone picardtools
@@ -43,7 +43,7 @@ cd picard/
 ./gradlew shadowJar
 
 ###########################################################################
-#Freebayes
+#Freebayes - SNP calling
 ###########################################################################
 #go to https://github.com/ekg/freebayes
 #clone freebayes
@@ -56,3 +56,18 @@ make
 
 #make in usr/bin/lib
 sudo make install
+
+###########################################################################
+#vcftools - snp filtering and summary statistics
+###########################################################################
+#go to https://github.com/ekg/freebayes
+#clone freebayes
+git clone https://github.com/vcftools/vcftools.git
+cd vcftools
+
+#build
+
+./autogen.sh
+./configure
+make
+make install

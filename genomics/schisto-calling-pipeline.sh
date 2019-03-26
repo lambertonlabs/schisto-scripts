@@ -44,5 +44,6 @@ mkdir GVCF
 
 #send to background or use screen or whatever
 
-#keep an eye
+#keep an eye, check heads and tails
+grep -v "##" CF-genotyped.vcf | head | less -S
 tail CF-genotyped.vcf | less -S
