@@ -58,15 +58,20 @@ make
 sudo make install
 
 ###########################################################################
+#vcflib - snp filtering and summary statistics
+###########################################################################
+#clone and build
+git clone --recursive https://github.com/vcflib/vcflib.git
+cd vcflib
+make
+
+###########################################################################
 #vcftools - snp filtering and summary statistics
 ###########################################################################
 #go to https://github.com/ekg/freebayes
-#clone freebayes
+#clone and build
 git clone https://github.com/vcftools/vcftools.git
 cd vcftools
-
-#build
-
 ./autogen.sh
 ./configure
 make
