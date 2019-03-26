@@ -1,8 +1,9 @@
 #installing gatk on a CLIMB instance
 #if you are running a GVL, htslib is installed already, so install if not
 
-#install git-lfs
-
+###########################################################################
+#git-lfs
+###########################################################################
 #install add-apt repository
 sudo apt-get install software-properties-common
 
@@ -17,7 +18,9 @@ sudo apt-get install git-lfs
 
 #final install and initialise
 git lfs install
-
+###########################################################################
+#GATKtools
+###########################################################################
 #navigate to https://github.com/broadinstitute/gatk/#building for more info
 #clone the up-to-date GATK repository
 git clone https://github.com/broadinstitute/gatk.git
@@ -27,3 +30,29 @@ cd gatk
 
 #build .jar
 ./gradlew bundle
+
+###########################################################################
+#Picardtools
+###########################################################################
+#go to https://github.com/broadinstitute/picard
+#clone picardtools
+git clone https://github.com/broadinstitute/picard.git
+cd picard/
+
+#build .jar
+./gradlew shadowJar
+
+###########################################################################
+#Freebayes
+###########################################################################
+#go to https://github.com/ekg/freebayes
+#clone freebayes
+
+git clone --recursive git://github.com/ekg/freebayes.git
+cd freebayes
+
+#make in local
+make
+
+#make in usr/bin/lib
+sudo make install
