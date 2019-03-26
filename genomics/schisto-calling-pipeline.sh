@@ -30,9 +30,19 @@ mkdir GVCF
 #takes approx 190 minutes per 5X WGS
 
 #consolidate GVCF
-mkdir data/faust/GenomicsDB
-./gatk/gatk data/faust/GenomicsDBImport  \
----genomicsdb-workspace-path data/faust/GenomicsDB \
--V data/faust/GVCF/CF7.g.vcf \
--V data/faust/GVCF/CF3.g.vcf \
---intervals 20
+./gatk/gatk CombineGVCFs \
+-O data/faust/GenomicsDB/CF-combined.vcf \
+-V data/faust/g-vcf/CF3.g.vcf \
+-V data/faust/g-vcf/CF7.g.vcf \
+-R Genos/Trematoda/schistosoma_mansoni.PRJEA36577.WBPS11.genomic.fa
+
+#genotype VCFs
+./gatk/gatk GenotypeGVCFs \
+-R Genomes/Trematoda/schistosoma_mansoni.PRJEA36577.WBPS11.genomic.fa \
+-V data/faust/GenomicsDB/CF-combined.vcf \
+-O CF-genotyped.vcf
+
+#send to background or use screen or whatever
+
+#keep an eye
+tail CF-genotyped.vcf | less -S
