@@ -1,6 +1,8 @@
 #R is super slow
 #cool packages often don't take well to analysing large numbers of WG data
 #use external software to generate metrics and then visualise in ggplot2
+#adapted from somewhere online
+#Tristan Dennis, March 2019
 
 #load modules
 library(dplyr)
@@ -9,7 +11,7 @@ library(ggplot2)
 #read in PI data as df
 pidf <- read.delim("~/Projects/Schisto/GENOMIC/VCF/out.windowed.pi", header = T)
 
-#function to exclude unassembled scaffolds
+#incomplete function to exclude unassembled scaffolds
 #doing this manually at the moment
 #newpidf <- filter(pidf, CHROM != "")
 
@@ -42,10 +44,11 @@ ggplot(don, aes(x=BIN_ENDcum, y=PI)) +
   # custom X axis:
   scale_x_continuous(label = axisdf$CHROM, breaks= axisdf$center ) +
   scale_y_continuous(expand = c(0, 0) ) +     # remove space between plot area and x axis
-  
-  # Custom the theme:
+
+    # Custom the theme:
   theme_bw() +
   theme( 
+    axis.text.x  = element_text(angle=45, vjust=0.5, size=6),
     legend.position="none",
     panel.border = element_blank(),
     panel.grid.major.x = element_blank(),
