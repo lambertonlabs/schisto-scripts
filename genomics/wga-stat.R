@@ -20,7 +20,8 @@ library(poppr)
 #setwd to dir containing vcfs
 setwd("~/Projects/Schisto/GENOMIC/VCF/popgenome/")
 
-
+snp <- read.vcfR("CF.vcf")
+x <- vcfR2genind(snp)
 
 
 
