@@ -24,11 +24,15 @@ vcftools --vcf minQ30snp.vcf.recode.vcf.recode.vcf --minDP 4 --recode --recode-I
  #haven't finished this yet
 #FILTER 4
 #filter on allele balances
+#GATK doesn't add AB by default, FreeBayes does. May just use FreeBayes from now on
 #time: 16s
 #variants at start: 491397
 #variants at end: 491397 (?)
 
-./vcflib/bin/vcffilter -s -f "AB > (0.25) & AB < (0.75) | AB < (0.01)" data/faust/variants/unfiltered/minQ30dp5snp.vcf.recode.vcf > minQ30dp5snp.ab.vcf
+#annotate allele balances
+./gatk/gatk
+
+./vcflib/bin/vcffilter -s -f "AB > 0.25 & AB < 0.75 | AB < 0.01" data/faust/variants/unfiltered/minQ30dp5snp.vcf.recode.vcf > minQ30dp5snp.ab.vcf
 
  bcftools view -g het -i  "AB>0.25 && AB < 0.75" input.vcf.gz
 
