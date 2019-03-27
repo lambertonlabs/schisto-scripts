@@ -5,7 +5,6 @@
 #load modules
 library(dplyr)
 library(ggplot2)
-library(qqman)
 
 #read in PI data as df
 pidf <- read.delim("~/Projects/Schisto/GENOMIC/VCF/out.windowed.pi", header = T)
