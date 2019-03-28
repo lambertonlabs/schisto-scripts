@@ -1,39 +1,14 @@
-#FILTER 1
-#Mapping quality > 20, only snps not missing data in any individals
-#time: 22secs
-#variants at start: 1154161
-#variants at end: 541015
-vcftools --vcf CF-genotyped.vcf --minQ 30 --max-missing 1 --recode --recode-INFO-all --out minQ30max1.vcfll
+#purge the indels After filtering, kept 997011 out of a possible 1189271 Sites
+#filtering freebayes output
+vcftools --vcf DP3g95p5maf05.prim.vcf --remove-indels --recode --recode-INFO-all --out SNP.DP3g95p5maf05
 
-#FILTER 2
-#No INDELß
-#time: 16secs
-#variants at start: 541015
-#variants at end: 491397
-vcftools --vcf minQ30max1.vcfll.recode.vcf --remove-indels --recode --recode-INFO-all --out minQ30snp.vcf.recode.vcf
+# keep variants that have been successfully genotyped in 50% of individuals, min quality  of 30
+vcftools --gzvcf raw.vcf.gz --max-missing 0.5 --minQ 30 --recode --recode-INFO-all --out raw.g5mac3
+#After filtering, kept 896262 out of a possible 997011 Sites
 
-#FILTER 3
-#DoC > 5
-#time: 16s
-#variants at start: 491397
-#variants at end: 491397 (?)
-vcftools --vcf minQ30snp.vcf.recode.vcf.recode.vcf --minDP 4 --recode --recode-INFO-all --out minQ30dp5snp.vcf
+#depth of 5 (to be retentive), kept 896262 (no diff...?)
+vcftools --vcf raw.g5mac3.recode.vcf --minDP 5 --recode --recode-INFO-all --out raw.indg5dp4
 
-
-
- #haven't finished this yet
-#FILTER 4
-#filter on allele balances
-#GATK doesn't add AB by default, FreeBayes does. May just use FreeBayes from now on
-#time: 16s
-#variants at start: 491397
-#variants at end: 491397 (?)
-
-#annotate allele balances
-./gatk/gatk
-
-./vcflib/bin/vcffilter -s -f "AB > 0.25 & AB < 0.75 | AB < 0.01" data/faust/variants/unfiltered/minQ30dp5snp.vcf.recode.vcf > minQ30dp5snp.ab.vcf
-
- bcftools view -g het -i  "AB>0.25 && AB < 0.75" input.vcf.gz
-
- bcftools view -i 'AB>0.25 && AB < 0.75 | AB < 0.01' minQ30dp5snp.vcf.recode.vcf
+#allele balance of between 0.25 to 0.75
+~/software/vcflib/bin/vcffilter -f "AB > 0.25 & AB < 0.75 | AB < 0.01" raw.indg5dp4.recode.vcf > indg5dp5ab.vcf &
+#kept 825975
